@@ -5,6 +5,7 @@ import { Home } from "./pages/Home";
 import { Errorpage } from "./pages/Errorpage";
 import { Layout } from "./pages/Layout";
 import { ProductById } from "./pages/ProductById";
+import { ManageProducts } from "./pages/ManageProducts";
 
 export const router = createBrowserRouter([
     {
@@ -19,8 +20,18 @@ export const router = createBrowserRouter([
             {
                 path: "/Admin",
                 element:<Admin/>
-            }
-            ,
+            },
+            {
+                path: "/Admin/products",
+                element:<Admin/>
+
+            },
+            {
+                path: "/Admin/manageproducts",
+                element:<ManageProducts/>
+
+            },
+            
             {
                 path: "/Products",
                 element: <Products/>
@@ -28,7 +39,8 @@ export const router = createBrowserRouter([
             {
                 path: "/products/:id",
                  element: <ProductById/>
-            } 
+            },
+
         ]
     }
 ])
