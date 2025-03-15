@@ -24,6 +24,9 @@ export const ManageProducts = () => {
   return (
     <div>
       <h2>manage products</h2>
+      <Link to="/admin/manageproducts/create">
+        Create new product
+      </Link>
       <ul>
         {products.map((product) => (
           <li key={product.id}>
@@ -35,6 +38,7 @@ export const ManageProducts = () => {
           </li>
         ))}
       </ul>
+
     </div>
   );
 };
