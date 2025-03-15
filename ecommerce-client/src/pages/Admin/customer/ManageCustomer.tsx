@@ -35,6 +35,9 @@ export const ManageCustomers = () => {
             <button onClick={() => handleDelete(customer.id)}>Delete</button>
           </li>
         ))}
+        <h3>Create new customer</h3>
+         <Link to ={`/admin/managecustomers/create/`}>Create
+         </Link>
       </ul>
     </div>
   );
