@@ -23,6 +23,18 @@ export const fetchCustomerById = async (id: string): Promise<ICustomer> => {
   }
 };
 
+
+export const createCustomer = async (customer: Omit<ICustomer, "id">): Promise<ICustomer> => {
+    try {   
+      const response = await axios.post<ICustomer>(`${API_URL}/customers`, customer);
+      return response.data;
+    } catch (error) {
+      console.error(error);  
+      throw error;
+    }
+  };
+
+
 export const deleteCustomer = async (id: string): Promise<void> => {
   try {
     await axios.delete(`${API_URL}/customers/${id}`);
