@@ -30,11 +30,12 @@ export const Products = () => {
       <h1>Produkter</h1>
       <div>
         {products.map((product) => (
-          <div key={product.id}>
+          <div key={product.id} style={{ border: "2px solid red", padding: "10px 5px 10px 5px" }}>
             <Link to={`/Products/${product.id}`}>
             <img src={product.image} style={{ width: "100px" }} />
             <h3>{product.name}</h3>
             <p>Pris: {product.price}</p>
+            <p>Click for more info</p>
             </Link>
           </div>
         ))}

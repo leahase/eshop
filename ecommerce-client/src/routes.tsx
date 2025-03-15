@@ -7,6 +7,7 @@ import { Layout } from "./pages/Layout";
 import { ProductById } from "./pages/ProductById";
 import { ManageProducts } from "./pages/Admin/ManageProducts";
 import { UpdateProduct} from "./pages/Admin/UpdateProduct";
+import { ManageCustomers } from "./pages/Admin/customer/manageCustomer";
 
 export const router = createBrowserRouter([
     {
@@ -41,6 +42,12 @@ export const router = createBrowserRouter([
                  element: <ProductById/>
             },
 
+
+            {
+                path: "/Admin/managecustomers",
+                element:<ManageCustomers/>
+
+            },
         ]
     }
 ])

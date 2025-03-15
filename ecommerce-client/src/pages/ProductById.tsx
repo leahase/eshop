@@ -31,6 +31,7 @@ export const ProductById = () => {
       <img src={product.image} alt={product.name} style={{ width: "300px"}} />
       <p>Pris: {product.price}</p>
       <p>{product.description}</p>
+      <p>productID: {product.id}</p>
     </div>
   );
 };

@@ -12,7 +12,7 @@ export const ManageProducts = () => {
       setProducts(data);
     };
     getProducts();
-  }, [products]);
+  }, []);
 
   const handleDelete = async (id: string) => {
     if (!window.confirm("do u really want to delete this product?")) return;
