@@ -1,11 +1,13 @@
-export interface ICustomer {
+
+  export interface ICustomer {
     id: string; 
     firstname: string;
     lastname: string;
     email: string;
+    password: string;
     phone: string; 
-    address_adress: string;
-    postal_code: number;
+    street_address: string;
+    postal_code: string;
     city: string;
     country: string;
     created_at: string;
