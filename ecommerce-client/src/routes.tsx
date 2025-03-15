@@ -7,8 +7,9 @@ import { Layout } from "./pages/Layout";
 import { ProductById } from "./pages/ProductById";
 import { ManageProducts } from "./pages/Admin/ManageProducts";
 import { UpdateProduct} from "./pages/Admin/UpdateProduct";
-import { ManageCustomers } from "./pages/Admin/customer/manageCustomer";
 import { CreateCustomer } from "./pages/Admin/customer/CreateCustomer";
+import { ManageCustomers } from "./pages/Admin/customer/ManageCustomer";
+import { CreateProduct } from "./pages/CreateProduct";
 
 export const router = createBrowserRouter([
     {
@@ -28,6 +29,11 @@ export const router = createBrowserRouter([
             {
                 path: "/Admin/manageproducts",
                 element:<ManageProducts/>
+
+            },
+            {
+                path: "/Admin/manageproducts/create",
+                element:<CreateProduct/>
 
             },
             {
