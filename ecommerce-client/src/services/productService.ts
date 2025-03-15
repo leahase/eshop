@@ -36,7 +36,7 @@ export const createProduct = async (product: IProduct): Promise<IProduct> => {
 };
 
 
-export const updateProduct = async (id: string, product: IProduct): Promise<IProduct> => {
+export const updateProduct = async (id: string, product: Partial<IProduct>): Promise<IProduct> => {
   try {
     const response = await axios.put<IProduct>(`${API_URL}/products/${id}`, product);
     return response.data;
