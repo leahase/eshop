@@ -25,7 +25,7 @@ export const fetchProductById = async (id: string): Promise<IProduct> => {
 };
 
 
-export const createProduct = async (product: IProduct): Promise<IProduct> => {
+export const createProduct = async (product: Omit<IProduct, "id">): Promise<IProduct> => {
   try {
     const response = await axios.post<IProduct>(`${API_URL}/products`, product);
     return response.data;
@@ -34,6 +34,7 @@ export const createProduct = async (product: IProduct): Promise<IProduct> => {
     throw error;
   }
 };
+
 
 
 export const updateProduct = async (id: string, product: Partial<IProduct>): Promise<IProduct> => {
