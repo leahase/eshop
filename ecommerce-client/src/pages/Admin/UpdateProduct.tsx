@@ -11,7 +11,11 @@ export const UpdateProduct = () => {
 
   useEffect(() => {
     if (!params.id) return;
-    fetchProductById(params.id).then((data) => setProduct(data));  
+
+    fetchProductById(params.id).then((data) => {
+    console.log("Hämtad produkt:", data);
+     setProduct(data)
+  });  
   }, [params.id]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -27,7 +31,9 @@ export const UpdateProduct = () => {
       name: product.name,
       price: product.price,
       image: product.image,
-      description: product.description
+      description: product.description,
+      category: product.category,
+      stock: product.stock
     });
 
     navigate("/admin/manageproducts"); 
@@ -66,6 +72,22 @@ export const UpdateProduct = () => {
           onChange={handleChange} 
 
         />
+        <input 
+        type="text" 
+        name="category" 
+        value={product?.category ?? ""} 
+        onChange={handleChange} 
+        placeholder="Category"
+      />
+
+      <input 
+        type="number" 
+        name="stock" 
+        value={product?.stock ?? ""} 
+        onChange={handleChange} 
+        placeholder="Stock"
+      />
+
 
         <button>Save changes</button>
         <Link to="/admin/manageproducts">Back</Link>
