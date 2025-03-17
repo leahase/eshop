@@ -7,7 +7,7 @@ export const Admin = () => {
       <nav>
         <p></p><Link to="/admin/manageproducts">manage products</Link>
         <p></p><Link to="/admin/managecustomers">manage customer</Link>
-        <p></p><Link to="/admin/orders">manage orders</Link>
+        <p></p><Link to="/admin/manageorders">manage orders</Link>
       </nav>
 
         </>

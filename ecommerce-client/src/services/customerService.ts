@@ -43,3 +43,13 @@ export const deleteCustomer = async (id: string): Promise<void> => {
     throw error;
   }
 };
+
+export const updateCustomer = async (id: string, customer: Partial<ICustomer>): Promise<ICustomer> => {
+  try {
+    const response = await axios.patch<ICustomer>(`${API_URL}/customers/${id}`, customer);
+    return response.data;
+  } catch (error) {
+    console.error("Error updating customer:", error);
+    throw error;
+  }
+};

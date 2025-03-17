@@ -10,6 +10,8 @@ import { UpdateProduct} from "./pages/Admin/UpdateProduct";
 import { CreateCustomer } from "./pages/Admin/customer/CreateCustomer";
 import { ManageCustomers } from "./pages/Admin/customer/ManageCustomer";
 import { CreateProduct } from "./pages/CreateProduct";
+import { ManageOrders } from "./pages/ManageOders";
+import { UpdateCustomer } from "./pages/Admin/customer/UpdateCustomer";
 
 export const router = createBrowserRouter([
     {
@@ -60,6 +62,16 @@ export const router = createBrowserRouter([
                 element:<CreateCustomer/>
 
             },
+
+            {
+                path: "/admin/managecustomers/update/:id",
+                element: <UpdateCustomer/>
+            },
+
+            {
+                path: "/admin/manageorders",
+                element: <ManageOrders />,
+            }
         ]
     }
 ])
