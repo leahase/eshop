@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { IOrder } from "../models/Order";
-import { fetchOrders } from "../services/orderService";
+import { deleteOrder, fetchOrderById, fetchOrders } from "../services/orderService";
 
 
 export const ManageOrders = () => {
@@ -11,7 +11,13 @@ export const ManageOrders = () => {
       try {
         const data = await fetchOrders();
         console.log(data); 
-        setOrders(data);
+        const ordersWithItems = await Promise.all(
+          data.map(async (order) => {
+            const orderDetails = await fetchOrderById(order.id);
+            return { ...order, order_items: orderDetails.order_items };
+          })
+        );
+        setOrders(ordersWithItems);
       } catch (error) {
         console.error(error);
       }
@@ -19,9 +25,19 @@ export const ManageOrders = () => {
     getOrders();
   }, []);
 
+  const handleDelete = async (id: string) => {
+      if (!window.confirm("do u really want to delete this product?")) return;
+      await deleteOrder(id);
+      const deletedOrder = orders.filter((id) => id !== id);
+      setOrders(deletedOrder);
+    };
+
+    
+    
   return (
     <div>
       <h2>Manage Orders</h2>
+      <h3>Order:</h3>
       {orders.length === 0 ? (
         <p>no orders found</p>
       ) : (
@@ -33,21 +49,16 @@ export const ManageOrders = () => {
               <strong>Total Price:</strong> {order.total_price} <br />
               <strong>Status:</strong> {order.order_status} <br />
               <strong>Created At:</strong> {new Date(order.created_at).toLocaleDateString()} <br />
-              
-              
-              <h3>Products in order</h3>
+              <h4>Items</h4>
               <ul>
-              {order.order_items && order.order_items.length > 0 ? (
-                order.order_items.map((item) => (
-                    <li key={item.id}>
-                    {item.product_name} - {item.quantity}x (${item.unit_price} each)
-                    </li>
-                ))
-                ) : (
-                <p>no products in the order</p>
-                )}
+              {order.order_items?.map((item) => (
+              <li key={item.id}>
+                {item.product_name} - {item.quantity}x (${item.unit_price} each)
+              </li>
+            ))}
+
               </ul>
-              <hr />
+              <button onClick={() => handleDelete(order.id)}>Delete</button>
             </li>
           ))}
         </ul>
