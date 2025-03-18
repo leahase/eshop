@@ -41,11 +41,10 @@ export const Products = () => {
       <div>
         {products.map((product) => (
           <div key={product.id} style={{ border: "2px solid red", padding: "10px 5px 10px 5px" }}>
-            <Link to={`/Products/${product.id}`}></Link>
             <img src={product.image} style={{ width: "100px" }} />
             <h3>{product.name}</h3>
             <p>Pris: {product.price}</p>
-            <p>Click for more info</p>
+            <Link to={`/Products/${product.id}`}>Click for more info</Link>
             <button onClick={() => handleAddToCart(product)}> add to cart</button>
           </div>
         ))}
