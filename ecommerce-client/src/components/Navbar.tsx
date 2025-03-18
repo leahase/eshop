@@ -13,6 +13,9 @@ export const Navbar = () => {
           <li>
             <NavLink to={"/Products"}>Products</NavLink>
           </li>
+          <li>
+            <NavLink to={"/Cart"}>Cart</NavLink>
+          </li>
         </ul>
       </nav>
   );

@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import { fetchProducts } from "../services/productService";
-import { IProduct } from "../models/Product";
+import { IProduct, Product } from "../models/Product";
 import { Link } from "react-router-dom";
+import { useCart } from "../Context/CartContext";
+import { CartItem } from "../models/CartItem";
+import { CartActionType } from "../reducers/CartReducer";
 
 export const Products = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { dispatch } = useCart();
 
   useEffect(() => {
     const getProducts = async () => {
@@ -25,18 +29,24 @@ export const Products = () => {
   if (loading) return <p>Loading..</p>;
   if (error) return <p>{error}</p>;
 
+  const handleAddToCart = (product: Product) => {
+    dispatch({
+      type: CartActionType.ADD_ITEM,
+      payload: new CartItem(product, 1),
+    });
+  }; 
   return (
     <div>
       <h1>Produkter</h1>
       <div>
         {products.map((product) => (
           <div key={product.id} style={{ border: "2px solid red", padding: "10px 5px 10px 5px" }}>
-            <Link to={`/Products/${product.id}`}>
+            <Link to={`/Products/${product.id}`}></Link>
             <img src={product.image} style={{ width: "100px" }} />
             <h3>{product.name}</h3>
             <p>Pris: {product.price}</p>
             <p>Click for more info</p>
-            </Link>
+            <button onClick={() => handleAddToCart(product)}> add to cart</button>
           </div>
         ))}
       </div>
