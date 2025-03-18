@@ -34,3 +34,31 @@ export const fetchOrderItems = async (orderId: string): Promise<IOrderItem[]> =>
     throw error;
   }
 };
+export const updateOrder = async (id: string, order: Partial<IOrder>): Promise<IOrder> => {
+  try {
+    console.log(order);
+    const response = await axios.patch<IOrder>(`${API_URL}/orders/${id}`, order);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const updateOrderItem = async (id: number, item: Partial<IOrderItem>): Promise<IOrderItem> => {
+  try {
+    const response = await axios.patch<IOrderItem>(`${API_URL}/order-items/${id}`, item);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+export const deleteOrderItem = async (id: number): Promise<void> => {
+  try {
+    await axios.delete(`${API_URL}/order-items/${id}`);
+  } catch (error) {
+    throw error;
+  }
+};

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { IOrder } from "../models/Order";
 import { deleteOrder, fetchOrderById, fetchOrders } from "../services/orderService";
+import { Link } from "react-router-dom";
 
 
 export const ManageOrders = () => {
@@ -10,6 +11,7 @@ export const ManageOrders = () => {
     const getOrders = async () => {
       try {
         const data = await fetchOrders();
+        console.log(data);
         console.log(data); 
         const ordersWithItems = await Promise.all(
           data.map(async (order) => {
@@ -48,6 +50,7 @@ export const ManageOrders = () => {
               <strong>Customer:</strong> {order.customer_firstname} {order.customer_lastname} <br />
               <strong>Total Price:</strong> {order.total_price} <br />
               <strong>Status:</strong> {order.order_status} <br />
+              <strong>Payment Status:</strong> {order.payment_status} <br />
               <strong>Created At:</strong> {new Date(order.created_at).toLocaleDateString()} <br />
               <h4>Items</h4>
               <ul>
@@ -58,7 +61,9 @@ export const ManageOrders = () => {
             ))}
 
               </ul>
-              <button onClick={() => handleDelete(order.id)}>Delete</button>
+              <button onClick={() => handleDelete(order.id)}>Delete whole order</button>
+
+              <Link to={`/admin/manageorders/update/${order.id}`} >Update order</Link>
             </li>
           ))}
         </ul>
