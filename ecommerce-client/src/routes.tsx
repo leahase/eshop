@@ -14,6 +14,7 @@ import { ManageOrders } from "./pages/ManageOders";
 import { UpdateCustomer } from "./pages/Admin/customer/UpdateCustomer";
 import { UpdateOrder } from "./pages/UpdateOrder";
 import { Cart } from "./components/Cart";
+import { Checkout } from "./pages/Checkout";
 
 
 
@@ -86,7 +87,11 @@ export const router = createBrowserRouter([
             { 
                 path: "/cart", 
                 element: <Cart /> 
-            },        
+            },      
+            {
+                path:"/checkout",
+                element: <Checkout />
+            },
               
         ]
     }

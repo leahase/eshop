@@ -1,6 +1,7 @@
 import { useCart } from "../Context/CartContext";
 import { CartActionType } from "../reducers/CartReducer";
 import { CartItem } from "../models/CartItem";
+import { Link } from "react-router-dom";
 
 export const Cart = () => {
   const { cart, dispatch } = useCart();
@@ -41,7 +42,10 @@ export const Cart = () => {
       </ul>
       <h3>Total: {totalCartPrice} euro</h3>
       <button onClick={handleResetCart}>Reset Cart</button>
-      <button>Checkout</button>
+      <Link to="/checkout">
+        <button>Checkout</button>
+     </Link>
+
     </div>
   );
 };

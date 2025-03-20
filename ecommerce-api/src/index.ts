@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import express from "express";
+import express, { Request, Response } from "express";
 import {connectDB} from "./config/db";
 import cors from "cors";
 
@@ -13,33 +13,40 @@ const app = express();
 app.use(express.json())
 app.use(cors())
 
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-app.post('/create-checkout-session', async (req, res) => {
-  const session = await stripe.checkout.sessions.create({
-    line_items: [
-      {
-        price_data: {
-          currency: 'SEK',
-          product_data: {
-            name: 'Poster',
+app.post('/create-checkout-session', async (req: Request, res: Response) => {
+  try {
+    const { cart } = req.body;
+
+    if (!cart || cart.length === 0 ) {
+      return res.json({error:"empty cart}"});
+  }
+    const line_items = cart.map((item: any) => (
+        {
+          price_data: {
+            currency: 'SEK',
+            product_data: {
+              name: item.product.name,
+            },
+            unit_amount: item.product.price * 100,
           },
-          unit_amount: 5000,
-        },
-        quantity: 1,
-      },
-    ],
+          quantity: item.quantity,
+    }))
+
+    const session = await stripe.checkout.sessions.create({
+    line_items,
     mode: 'payment',
-    success_url: 'http://localhost:5173/order/confirmation',
+    success_url: 'http://localhost:5173/order/confirmation?session_id={CHECKOUT_SESSION_ID}',
     cancel_url: 'http://localhost:5173/checkout',
     client_reference_id: '123',
   });
 
-
-
-  res.json(session);
-
-  res.redirect(303, session.url);
+  res.json({checkout_url: session.url});
+} catch (error) {
+console.log(error);
+}
+  // res.redirect(303, session.url);
 });
 
 
