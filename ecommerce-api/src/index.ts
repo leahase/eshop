@@ -3,6 +3,9 @@ import express from "express";
 import {connectDB} from "./config/db";
 import cors from "cors";
 
+// "id": "cs_test_a1uIyo5ec4OJtG0wzegE1E1D4Z9m419NJNIhOECyTCdzwSDnSC2Pp2epon"
+
+
 dotenv.config();
 const app = express();
 
@@ -10,26 +13,31 @@ const app = express();
 app.use(express.json())
 app.use(cors())
 
-const stripe = require('stripe')('sk_test_4QHS9UR02FMGKPqdjElznDRI')
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
 app.post('/create-checkout-session', async (req, res) => {
   const session = await stripe.checkout.sessions.create({
     line_items: [
       {
         price_data: {
-          currency: 'usd',
+          currency: 'SEK',
           product_data: {
-            name: 'T-shirt',
+            name: 'Poster',
           },
-          unit_amount: 2000,
+          unit_amount: 5000,
         },
         quantity: 1,
       },
     ],
     mode: 'payment',
-    success_url: 'http://localhost:4242/success',
-    cancel_url: 'http://localhost:4242/cancel',
+    success_url: 'http://localhost:5173/order/confirmation',
+    cancel_url: 'http://localhost:5173/checkout',
+    client_reference_id: '123',
   });
+
+
+
+  res.json(session);
 
   res.redirect(303, session.url);
 });
