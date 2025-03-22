@@ -53,3 +53,12 @@ export const updateCustomer = async (id: string, customer: Partial<ICustomer>): 
     throw error;
   }
 };
+export const fetchCustomerByEmail = async (email: string): Promise<ICustomer> => {
+  try {
+    const response = await axios.get<ICustomer>(`${API_URL}/customers/email/${email}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching customer by Email", error);
+    throw error;
+  }
+}
