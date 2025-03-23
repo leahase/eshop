@@ -41,11 +41,12 @@ export const Cart = () => {
         ))}
       </ul>
       <h3>Total: {totalCartPrice} euro</h3>
-      <button onClick={handleResetCart}>Reset Cart</button>
-      <Link to="/checkout">
-        <button>Checkout</button>
-     </Link>
-
+      {cart.length > 0 && (
+        <Link to="/checkout">
+        <button disabled={cart.length === 0}>Checkout</button>
+        </Link>
+      )}
+       <button onClick={handleResetCart} disabled={cart.length === 0} >Reset Cart</button>
     </div>
   );
 };
