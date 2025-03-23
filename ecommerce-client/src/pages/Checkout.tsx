@@ -1,6 +1,7 @@
 import { FormEvent, useState } from "react";
 import { useCart } from "../Context/CartContext";
 
+
 export const Checkout = () => {
   const { cart } = useCart(); 
   const [customer, setCustomer] = useState({
@@ -13,10 +14,17 @@ export const Checkout = () => {
     city: "",
     country: ""
   });
+
+  const totalCartPrice = cart.reduce(
+    (total, item) => total + item.quantity * item.product.price,
+    0
+  );
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCustomer({...customer, [e.target.name]: e.target.value})
   }
-
+  
+  
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -49,9 +57,10 @@ export const Checkout = () => {
       <ul>
         {cart.map((item) => (
           <li key={item.product.id}>
-            {item.product.name} - {item.quantity} x {item.product.price} kr
+            {item.product.name} - {item.quantity} x {item.product.price} €
           </li>
         ))}
+       <h3>Your total today is: {totalCartPrice} €</h3>
       </ul>
 
       <form onSubmit={handleSubmit}>
@@ -83,6 +92,7 @@ export const Checkout = () => {
             value={customer.phone} 
             onChange={handleChange} 
             placeholder="Phone" 
+            required
             />
 
         <input 
@@ -90,28 +100,31 @@ export const Checkout = () => {
             value={customer.street_address} 
             onChange={handleChange} 
             placeholder="Address" 
+            required
             />
         <input 
             name="postal_code" 
             value={customer.postal_code} 
             onChange={handleChange} 
             placeholder="Postal code" 
+            required
             />
         <input 
             name="city" 
             value={customer.city} 
             onChange={handleChange} 
             placeholder="City" 
+            required
             />
         <input 
             name="country" 
             value={customer.country} 
             onChange={handleChange} 
             placeholder="Country" 
+            required
             />
         <h3>payment</h3>
-        <p>...</p>
-        <button type="submit">to checkout</button>
+        <button type="submit">continue to checkout</button>
       </form>
     </>
   );

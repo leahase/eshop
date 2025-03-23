@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { useCart } from "../Context/CartContext";
 import { CartItem } from "../models/CartItem";
 import { CartActionType } from "../reducers/CartReducer";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const Products = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
@@ -34,6 +36,7 @@ export const Products = () => {
       type: CartActionType.ADD_ITEM,
       payload: new CartItem(product, 1),
     });
+    toast.success(`One ${product.name} has been added to the cart!`);
   }; 
   return (
     <div>
