@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
+import { use, useCallback, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { IOrder } from "../models/Order";
+import { useCart } from "../Context/CartContext";
+import { CartActionType } from "../reducers/CartReducer";
 
 
 export const Confirmation = () => {
     const location = useLocation();
     const [order, setOrder] = useState< IOrder | null>(null);
+    const { dispatch } = useCart();
 
     const sessionId = new URLSearchParams(location.search).get("session_id");
 
@@ -23,8 +26,15 @@ export const Confirmation = () => {
         };
       
         fetchOrder();
+        
       }, [sessionId]);
-      
+      useEffect(() => {
+        if (order) {
+          localStorage.removeItem("cart");
+          localStorage.removeItem("customer");
+          dispatch({ type: CartActionType.RESET_CART });
+        }
+      }, [order])
     
     return (
         <>
