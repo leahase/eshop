@@ -73,7 +73,7 @@ app.post("/create-checkout-session", async (req: Request, res: Response) => {
     const line_items = cart.map((item: any) => (
         {
           price_data: {
-            currency: '€',
+            currency: 'eur',
             product_data: {
               name: item.product.name,
             },
@@ -89,6 +89,8 @@ app.post("/create-checkout-session", async (req: Request, res: Response) => {
     cancel_url: 'http://localhost:5173/checkout',
     client_reference_id: String(order_id),
   });
+  console.log("Stripe session:", session);
+
 
   if (!session.url) {
     console.error(Error);
@@ -98,6 +100,8 @@ app.post("/create-checkout-session", async (req: Request, res: Response) => {
   console.log('order updated', session.id);
 
   res.json({checkout_url: session.url});
+
+
 } catch (error) {
 console.log(error);
 }
