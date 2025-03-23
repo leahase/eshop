@@ -33,14 +33,14 @@ export const Cart = () => {
       <ul>
         {cart.map((item: CartItem) => (
           <li key={item.product.id}>
-            {item.product.name} - {item.quantity} x {item.product.price} euro
+            {item.product.name} - {item.quantity} x {item.product.price} €
             <button onClick={() => handleIncreaseQuantity(item.product)}>+</button>
             <button onClick={() => handleDecreaseQuantity(item.product)}>-</button>
             <button onClick={() => handleRemoveItem(item.product)}>Remove</button>
           </li>
         ))}
       </ul>
-      <h3>Total: {totalCartPrice} euro</h3>
+      <h3>Total: {totalCartPrice} €</h3>
       {cart.length > 0 && (
         <Link to="/checkout">
         <button disabled={cart.length === 0}>Checkout</button>

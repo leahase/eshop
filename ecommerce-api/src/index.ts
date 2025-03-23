@@ -73,7 +73,7 @@ app.post("/create-checkout-session", async (req: Request, res: Response) => {
     const line_items = cart.map((item: any) => (
         {
           price_data: {
-            currency: 'SEK',
+            currency: '€',
             product_data: {
               name: item.product.name,
             },

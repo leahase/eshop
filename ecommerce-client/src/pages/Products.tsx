@@ -40,10 +40,10 @@ export const Products = () => {
       <h1>Produkter</h1>
       <div>
         {products.map((product) => (
-          <div key={product.id} style={{ border: "2px solid red", padding: "10px 5px 10px 5px" }}>
+          <div key={product.id} style={{ border: "2px solid grey", padding: "10px 5px 10px 5px" }}>
             <img src={product.image} style={{ width: "100px" }} />
             <h3>{product.name}</h3>
-            <p>Pris: {product.price}</p>
+            <p>Pris: {product.price} €</p>
             <Link to={`/Products/${product.id}`}>Click for more info</Link>
             <button onClick={() => handleAddToCart(product)}> add to cart</button>
           </div>
