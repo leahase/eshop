@@ -1,10 +1,14 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useCart } from "../Context/CartContext";
 
 
 export const Checkout = () => {
   const { cart } = useCart(); 
-  const [customer, setCustomer] = useState({
+  const [customer, setCustomer] = useState(() => {
+    const saved = localStorage.getItem("customer")
+    return saved
+    ? JSON.parse(saved)
+  : {
     firstname: "",
     lastname: "",
     email: "",
@@ -13,13 +17,18 @@ export const Checkout = () => {
     postal_code: "",
     city: "",
     country: ""
+  }
   });
 
-  const totalCartPrice = cart.reduce(
-    (total, item) => total + item.quantity * item.product.price,
-    0
-  );
+
+  useEffect(() => {
+    localStorage.setItem("customer", JSON.stringify(customer));
+  }, [customer]);
   
+  const totalCartPrice = cart.reduce(
+  (total, item) => total + item.quantity * item.product.price,
+  0
+);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCustomer({...customer, [e.target.name]: e.target.value})
   }
