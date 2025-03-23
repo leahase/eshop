@@ -85,7 +85,7 @@ app.post("/create-checkout-session", async (req: Request, res: Response) => {
     const session = await stripe.checkout.sessions.create({
     line_items,
     mode: 'payment',
-    success_url: 'http://localhost:5173/?session_id={CHECKOUT_SESSION_ID}',
+    success_url: 'http://localhost:5173/confirmation?session_id={CHECKOUT_SESSION_ID}',
     cancel_url: 'http://localhost:5173/checkout',
     client_reference_id: String(order_id),
   });

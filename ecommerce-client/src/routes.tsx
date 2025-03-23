@@ -15,6 +15,7 @@ import { UpdateCustomer } from "./pages/Admin/customer/UpdateCustomer";
 import { UpdateOrder } from "./pages/UpdateOrder";
 import { Cart } from "./components/Cart";
 import { Checkout } from "./pages/Checkout";
+import { Confirmation } from "./components/Confirmation";
 
 
 
@@ -92,7 +93,11 @@ export const router = createBrowserRouter([
                 path:"/checkout",
                 element: <Checkout />
             },
-              
+            {
+                path: "/confirmation",
+                element: <Confirmation />
+            },
+                
         ]
     }
 ])
