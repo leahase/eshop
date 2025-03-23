@@ -7,6 +7,7 @@ import "../styles/footer.css"
 export const Layout = () => {
     return (
       <>
+      <div className="layout">
         <header>
             <Navbar />
         </header>
@@ -16,6 +17,7 @@ export const Layout = () => {
         <footer>
           <Footer />
         </footer>
+        </div>
       </>
     );
   };

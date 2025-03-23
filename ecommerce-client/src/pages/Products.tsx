@@ -43,7 +43,7 @@ export const Products = () => {
       <h1>Produkter</h1>
       <div>
         {products.map((product) => (
-          <div key={product.id} style={{ border: "2px solid grey", padding: "10px 5px 10px 5px" }}>
+          <div key={product.id} style={{ border: "5px solid grey", borderRadius: "2em", padding: "10px 5px 10px 5px", margin: "10px" }}>
             <img src={product.image} style={{ width: "100px" }} />
             <h3>{product.name}</h3>
             <p>Pris: {product.price} €</p>
