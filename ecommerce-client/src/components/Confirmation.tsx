@@ -1,4 +1,4 @@
-import { use, useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { IOrder } from "../models/Order";
 import { useCart } from "../Context/CartContext";
@@ -28,13 +28,38 @@ export const Confirmation = () => {
         fetchOrder();
         
       }, [sessionId]);
+
       useEffect(() => {
-        if (order) {
-          localStorage.removeItem("cart");
-          localStorage.removeItem("customer");
-          dispatch({ type: CartActionType.RESET_CART });
-        }
-      }, [order])
+        if (!order) return;
+      
+        localStorage.removeItem("cart");
+        localStorage.removeItem("customer");
+        dispatch({ type: CartActionType.RESET_CART });
+      
+        const updateOrder = async () => {
+          try {
+            const res = await fetch(`http://localhost:3000/orders/${order.id}`, {
+              method: "PATCH",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                payment_status: "Paid",
+                payment_id: order.payment_id, 
+                order_status: "Received",
+              }),
+            });
+      
+            const data = await res.json();
+            console.log("updated", data);
+          } catch (error) {
+            console.error(error);
+          }
+        };
+      
+        updateOrder();
+      }, [order]);
+      
     
     return (
         <>
