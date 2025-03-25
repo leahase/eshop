@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+/* import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { IProduct } from "../../../models/Product";
 import { fetchProductById } from "../../../services/productService";
@@ -37,3 +37,4 @@ export const ProductById = () => {
   );
 };
 
+ */
