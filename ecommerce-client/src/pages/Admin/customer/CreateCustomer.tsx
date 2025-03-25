@@ -30,8 +30,13 @@ export const CreateCustomer = () => {
       await createCustomer(customer);  
       alert("created");
       navigate("/admin/managecustomers");
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      if (error.response.status === 409) {
+        alert("a customer with this email already exists.")
+      } else {
+        console.error(error);
+      }
+      
     }
   };
 
