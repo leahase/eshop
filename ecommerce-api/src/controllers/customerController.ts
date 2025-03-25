@@ -48,6 +48,11 @@ export const createCustomer = async (req: Request, res: Response) => {
   const { firstname, lastname, email, password, phone, street_address, postal_code, city, country }: ICustomer = req.body;
   
   try {
+    const [exists] = await db.query<ICustomer[]>("SELECT * FROM customers WHERE email = ?", [email]);
+    if (exists.length > 0) {
+    return res.status(409).json({error: 'customer with this email exists already'});
+    }
+
     const sql = `
       INSERT INTO customers (firstname, lastname, email, password, phone, street_address, postal_code, city, country)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
