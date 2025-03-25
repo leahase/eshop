@@ -3,6 +3,7 @@ import { CartActionType } from "../reducers/CartReducer";
 import { CartItem } from "../models/CartItem";
 import { Link } from "react-router-dom";
 
+
 export const Cart = () => {
   const { cart, dispatch } = useCart();
 
@@ -30,7 +31,16 @@ export const Cart = () => {
   return (
     <div>
       <h2>Cart</h2>
-      <ul>
+      { cart.length === 0 ? (
+        <>
+        <p>you cant continue to checkout with an empty cart</p>
+        <Link to="/products">
+        ... check out our products here! 
+        </Link>
+        </>
+      ) : (
+        <>
+        <ul>
         {cart.map((item: CartItem) => (
           <li key={item.product.id}>
             {item.product.name} - {item.quantity} x {item.product.price} €
@@ -41,12 +51,12 @@ export const Cart = () => {
         ))}
       </ul>
       <h3>Total: {totalCartPrice} €</h3>
-      {cart.length > 0 && (
-        <Link to="/checkout">
-        <button disabled={cart.length === 0}>Checkout</button>
+      <Link to="/checkout">
+          Checkout
         </Link>
-      )}
-       <button onClick={handleResetCart} disabled={cart.length === 0} >Reset Cart</button>
-    </div>
-  );
-};
+      <button onClick={handleResetCart} disabled={cart.length === 0} >Reset Cart</button>
+      </>
+    )}
+  </div>
+);
+}

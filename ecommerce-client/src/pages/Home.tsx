@@ -9,7 +9,7 @@ export const Home = () => {
         <h1>welcome</h1>
         <p>find timeless furniture</p>
         <Link to="/products">
-          <button>check it out</button>
+          check it out
         </Link>
       </div>
     </div>

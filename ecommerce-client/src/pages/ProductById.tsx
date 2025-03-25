@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchProductById } from "../services/productService";
-import { IProduct, Product } from "../models/Product";
+import { IProduct} from "../models/Product";
 import { toast } from "react-toastify";
 import { useCart } from "../Context/CartContext";
 import { CartItem } from "../models/CartItem";
@@ -29,7 +29,7 @@ export const ProductById = () => {
 
   if (!product) return <p>Loading</p>;
 
-const handleAddToCart = (product: Product) => {
+const handleAddToCart = (product: IProduct) => {
     dispatch({
       type: CartActionType.ADD_ITEM,
       payload: new CartItem(product, 1),
@@ -40,7 +40,7 @@ const handleAddToCart = (product: Product) => {
     <div>
       <h2>{product.name}</h2>
       <img src={product.image} alt={product.name} style={{ width: "300px"}} />
-      <p>Pris: {product.price}€</p>
+      <p>Price: {product.price}€</p>
       <p>{product.description}</p>
       <p>productID: {product.id}</p>
       <button onClick={() => handleAddToCart(product)}> add to cart</button>

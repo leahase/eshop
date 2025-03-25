@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchProducts } from "../services/productService";
-import { IProduct, Product } from "../models/Product";
+import { IProduct } from "../models/Product";
 import { Link } from "react-router-dom";
 import { useCart } from "../Context/CartContext";
 import { CartItem } from "../models/CartItem";
@@ -31,7 +31,7 @@ export const Products = () => {
   if (loading) return <p>Loading..</p>;
   if (error) return <p>{error}</p>;
 
-  const handleAddToCart = (product: Product) => {
+  const handleAddToCart = (product: IProduct) => {
     dispatch({
       type: CartActionType.ADD_ITEM,
       payload: new CartItem(product, 1),
@@ -46,7 +46,7 @@ export const Products = () => {
           <div key={product.id} className="box" style={{ border: "5px solid grey", borderRadius: "2em", padding: "10px 5px 10px 5px", margin: "10px" }}>
             <img src={product.image} style={{ width: "100px" }} />
             <h3>{product.name}</h3>
-            <p>Pris: {product.price} €</p>
+            <p>Price: {product.price} €</p>
             <Link to={`/Products/${product.id}`}>Click for more info</Link>
             <button onClick={() => handleAddToCart(product)}> add to cart</button>
           </div>

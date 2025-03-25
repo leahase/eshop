@@ -5,6 +5,7 @@ import cors from "cors";
 import { ResultSetHeader } from "mysql2";
 
 
+
 // "id": "cs_test_a1uIyo5ec4OJtG0wzegE1E1D4Z9m419NJNIhOECyTCdzwSDnSC2Pp2epon"
 
 
@@ -25,8 +26,7 @@ app.post("/create-checkout-session", async (req: Request, res: Response) => {
       return res.json({error:"empty cart}"});
   }
   const [rows] = await db.query<ICustomer[]>("SELECT * FROM customers WHERE email = ?", [customer.email]);
-  let customer_id;
-
+  let customer_id: any;
   if (rows.length > 0) {
     customer_id = rows[0].id;
     console.log('customer exists already', customer.email);
@@ -70,8 +70,8 @@ app.post("/create-checkout-session", async (req: Request, res: Response) => {
         [order_id, item.product.id, item.product.name, item.quantity, item.product.price]
       );
     }
-    const line_items = cart.map((item: any) => (
-        {
+    const line_items = cart.map((item: any) => {
+        return {
           price_data: {
             currency: 'eur',
             product_data: {
@@ -80,7 +80,8 @@ app.post("/create-checkout-session", async (req: Request, res: Response) => {
             unit_amount: item.product.price * 100,
           },
           quantity: item.quantity,
-    }))
+        }
+    })
 
     const session = await stripe.checkout.sessions.create({
     line_items,

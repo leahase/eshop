@@ -33,7 +33,6 @@ export const Checkout = () => {
     setCustomer({...customer, [e.target.name]: e.target.value})
   }
   
-  
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -72,7 +71,7 @@ export const Checkout = () => {
        <h3>Your total today is: {totalCartPrice} €</h3>
       </ul>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} >
          <input 
             name="firstname"  
             value={customer.firstname}    

@@ -28,10 +28,11 @@ export const ManageOrders = () => {
   }, []);
 
   const handleDelete = async (id: string) => {
-      if (!window.confirm("do u really want to delete this product?")) return;
+      if (!window.confirm("do u really want to delete this order?")) return;
       await deleteOrder(id);
-      const deletedOrder = orders.filter((id) => id !== id);
+      const deletedOrder = orders.filter((order) => order.id !== id);
       setOrders(deletedOrder);
+      alert(`your order with orderId:${id} was deleted`)
     };
 
     
